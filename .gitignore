@@ -1,3 +1,4 @@
 aorta/
 tmp/
-
+*.nfs*
+*.swp
