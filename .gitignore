@@ -2,3 +2,4 @@ aorta/
 tmp/
 *.nfs*
 *.swp
+target/

@@ -5,7 +5,7 @@ AORTA_DIR = aorta/
 all: install-scala-for-aorta
 
 install-scala-for-aorta: $(TMP)sbt-launch.jar $(AORTA_DIR)
-	cd $(AORTA_DIR) && ../$(BIN)/sbt.sh compile
+	cd $(AORTA_DIR) && ../$(BIN)/sbt.sh compile && ../$(BIN)/sbt.sh pack
 
 $(TMP):
 	mkdir -p $(TMP)
