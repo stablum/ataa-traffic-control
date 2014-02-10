@@ -1,6 +1,8 @@
 TMP = tmp/
 BIN = bin/
 AORTA_DIR = aorta/
+SBT_LAUNCH_URL = wget http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.1/sbt-launch.jar
+AORTA_REPO_URL = https://code.google.com/p/road-rage
 
 all: install-scala-for-aorta
 
@@ -11,10 +13,10 @@ $(TMP):
 	mkdir -p $(TMP)
 
 $(TMP)sbt-launch.jar: $(TMP)
-	cd $(TMP) && wget http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.1/sbt-launch.jar
+	cd $(TMP) && wget $(SBT_LAUNCH_URL)
 
 $(AORTA_DIR):
-	git clone https://code.google.com/p/road-rage $(AORTA_DIR)
+	git clone $(AORTA_REPO_URL) $(AORTA_DIR)
 
 clean:
 	rm -Rvf $(TMP) $(AORTA_DIR)
