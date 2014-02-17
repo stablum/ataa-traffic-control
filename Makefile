@@ -6,7 +6,7 @@ MAPS_DIR = $(AORTA_DIR)maps/
 SBT_LAUNCH_URL = http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.1/sbt-launch.jar
 AORTA_REPO_URL = https://code.google.com/p/road-rage
 
-all: $(TMP)install-scala-for-aorta
+all: install-scala-for-aorta
 
 install-scala-for-aorta: $(TMP)sbt-launch.jar $(AORTA_DIR)
 	cd $(AORTA_DIR) && ../$(BIN)/sbt.sh compile && ../$(BIN)/sbt.sh pack
