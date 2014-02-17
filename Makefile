@@ -29,4 +29,7 @@ test-br: $(TMP)install-scala-for-aorta
 $(MAPS_DIR)science_park.osm:
 	curl "http://api.openstreetmap.org/api/0.6/map?bbox=4.95109,52.35284,4.96105,52.35745" > $(MAPS_DIR)science_park.osm
 
+$(MAPS_DIR)amsterdam.osm:
+	curl "http://api.openstreetmap.org/api/0.6/map?bbox=4.84,52.3428,4.9993,52.3875" > $(MAPS_DIR)amsterdam.osm
+
 .PHONY: test_baton_rouge $(TMP)sbt-launch.jar install-scala-for-aorta
