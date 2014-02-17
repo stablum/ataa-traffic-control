@@ -1,14 +1,15 @@
+# vim: set noexpandtab :
 TMP = tmp/
 BIN = bin/
 AORTA_DIR = aorta/
+MAPS_DIR = $(AORTA_DIR)maps/
 SBT_LAUNCH_URL = http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.1/sbt-launch.jar
 AORTA_REPO_URL = https://code.google.com/p/road-rage
 
 all: $(TMP)install-scala-for-aorta
 
-$(TMP)install-scala-for-aorta: $(TMP)sbt-launch.jar $(AORTA_DIR)
+install-scala-for-aorta: $(TMP)sbt-launch.jar $(AORTA_DIR)
 	cd $(AORTA_DIR) && ../$(BIN)/sbt.sh compile && ../$(BIN)/sbt.sh pack
-	touch $(TMP)/install-scala-for-aorta
 
 $(TMP):
 	mkdir -p $(TMP)
@@ -22,3 +23,10 @@ $(AORTA_DIR):
 clean:
 	rm -Rvf $(TMP) $(AORTA_DIR)
 
+test-br: $(TMP)install-scala-for-aorta
+	cd $(AORTA_DIR) && ./simulate maps/baton_rouge.map
+
+$(MAPS_DIR)science_park.osm:
+	curl "http://api.openstreetmap.org/api/0.6/map?bbox=4.95109,52.35284,4.96105,52.35745" > $(MAPS_DIR)science_park.osm
+
+.PHONY: test_baton_rouge $(TMP)sbt-launch.jar install-scala-for-aorta
