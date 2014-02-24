@@ -36,6 +36,7 @@ $(DIRS):
 	mkdir -p $@
 
 $(TMP)sbt-launch.jar:
+	mkdir -p $(TMP)
 	cd $(TMP) && wget $(SBT_LAUNCH_URL)
 	touch $@
 
@@ -55,13 +56,22 @@ $(OSM_DIR)science_park.osm: $(OSM_DIR)
 $(OSM_DIR)amsterdam.osm: $(OSM_DIR)
 	curl "http://api.openstreetmap.org/api/0.6/map?bbox=4.84,52.3428,4.9993,52.3875" > $@
 
+$(OSM_DIR)small_synthetic_1lane.osm: $(OSM_DIR)
+	cp small_synthetic_1lane.osm $(OSM_DIR)
+
 $(MAPS_DIR)science_park.map: $(OSM_DIR)science_park.osm $(SA)
 	( cd $(AORTA_DIR) ; pwd ; bash ./build_map $(RELATIVE_OSM_DIR)science_park.osm )
+
+$(MAPS_DIR)small_synthetic_1lane.map: $(OSM_DIR)small_synthetic_1lane.osm $(SA)
+	( cd $(AORTA_DIR) ; pwd ; bash ./build_map $(RELATIVE_OSM_DIR)small_synthetic_1lane.osm )
 
 simulate-br: $(SA)
 	( cd $(AORTA_DIR) ; ./simulate $(RELATIVE_MAPS_DIR)baton_rouge.map )
 
 simulate-sp: $(MAPS_DIR)science_park.map $(SA)
 	( cd $(AORTA_DIR) ; ./simulate $(RELATIVE_MAPS_DIR)science_park.map )
+
+simulate-ss1l: $(MAPS_DIR)small_synthetic_1lane.map $(SA)
+	( cd $(AORTA_DIR) ; ./simulate $(RELATIVE_MAPS_DIR)small_synthetic_1lane.map )
 
 .PHONY: test_baton_rouge clean print-dirs dirs
